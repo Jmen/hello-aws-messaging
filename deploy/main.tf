@@ -32,7 +32,7 @@ module "hello_messaging_api_gateway" {
 module "hello-sqs" {
   source = "./modules/sqs"
   
-  name = "hello-sqs"
+  name = "HelloSQS"
 }
 
 
