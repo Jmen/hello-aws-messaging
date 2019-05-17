@@ -15,7 +15,7 @@ module "hello_messaging_api_gateway_lambda" {
   
   name              = "hello-messaging-${var.environment}"
   runtime           = "dotnetcore2.1"
-  handler           = "HelloAwsMessaging::HelloAwsMessaging.ApiGateway.Function::FunctionHandler"
+  handler           = "HelloAwsMessaging.ApiGateway::HelloAwsMessaging.ApiGateway.Function::FunctionHandler"
   filename          = "../../../../../../output/apigateway-lambda.zip"
   source_code_hash  = "${base64sha256(file("../../../../../../output/apigateway-lambda.zip"))}"
 }
