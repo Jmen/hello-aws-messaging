@@ -11,3 +11,5 @@ variable "handler" {}
 variable "timeout" {
     default = 60
 }
+
+variable "policy_arn" {}
