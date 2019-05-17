@@ -27,3 +27,15 @@ module "hello_messaging_api_gateway" {
   lambda_arn        = "${module.hello_messaging_api_gateway_lambda.lambda_arn}"
   lambda_invoke_arn = "${module.hello_messaging_api_gateway_lambda.lambda_invoke_arn}"
 }
+
+
+module "hello-sqs" {
+  source = "./modules/sqs"
+  
+  name = "hello-sqs"
+}
+
+
+output "hello" {
+  value = "${module.hello-sqs.arn}}"
+}
