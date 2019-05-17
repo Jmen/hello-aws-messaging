@@ -1,0 +1,7 @@
+steps:
+  - label: Build
+    commands:
+      - bash ./deploy/scripts/build.sh
+    artifact_paths:
+      - "output/apigateway-lambda.zip"
+      
