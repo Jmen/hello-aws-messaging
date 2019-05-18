@@ -29,7 +29,7 @@ module "hello_messaging_api_gateway_lambda" {
   policy_arn = "${aws_iam_policy.lambda_policy.arn}"
   
   environment_variables = {
-    "SQS_Queue_ARN" = "${module.hello-sqs.arn}"
+    "SQS_Queue_Name" = "${module.hello-sqs.name}"
   }
 }
 
