@@ -1,26 +1,57 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Amazon;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
+using Amazon.SQS;
+using Amazon.SQS.Model;
 using Newtonsoft.Json;
 
-// Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
 
 namespace HelloAwsMessaging.ApiGateway
 {
     public class Function
     {
-        public APIGatewayProxyResponse FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
+        private readonly IAmazonSQS _sqs = new AmazonSQSClient(RegionEndpoint.USEast1);
+        
+        public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
         {
-            context.Logger.Log(JsonConvert.SerializeObject(request, Formatting.Indented));
+            await SendMessage();
+
+            return SendResponse();
+        }
+        
+        private async Task SendMessage()
+        {
+            var urlResponse = await _sqs.GetQueueUrlAsync(Environment.GetEnvironmentVariable("SQS_Queue_Name"));
             
+            var attributes = new Dictionary<string, MessageAttributeValue>()
+            {
+                {
+                    "Hello", new MessageAttributeValue
+                    {
+                        DataType = "String",
+                        StringValue = Guid.NewGuid().ToString()
+                    }
+                }
+            };
+            
+            await _sqs.SendMessageAsync(new SendMessageRequest
+            {
+                QueueUrl = urlResponse.QueueUrl,
+                MessageBody = $"This is my message text - {DateTime.UtcNow:F}",
+                MessageAttributes = attributes
+            });
+        }
+
+        private static APIGatewayProxyResponse SendResponse()
+        {
             var response = new APIGatewayProxyResponse
             {
-                StatusCode = (int)HttpStatusCode.OK,
+                StatusCode = (int) HttpStatusCode.OK,
                 Body = @"
                 <html>
                 <head>
@@ -31,7 +62,7 @@ namespace HelloAwsMessaging.ApiGateway
                     <h5>Deployed by Terraform</h5>
                 </body>
                 </html>",
-                Headers = new Dictionary<string, string> { { "Content-Type", "text/html" } }
+                Headers = new Dictionary<string, string> {{"Content-Type", "text/html"}}
             };
 
             return response;

@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloAwsMessaging.ApiGateway", "HelloAwsMessaging.ApiGateway\HelloAwsMessaging.ApiGateway.csproj", "{69DCBB41-77A5-47A1-A275-A11013F3C887}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloAwsMessaging.ConsoleTester", "HelloAwsMessaging.ConsoleTester\HelloAwsMessaging.ConsoleTester.csproj", "{794DC4B1-3218-466F-8BEC-D24AD666711A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{69DCBB41-77A5-47A1-A275-A11013F3C887}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69DCBB41-77A5-47A1-A275-A11013F3C887}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69DCBB41-77A5-47A1-A275-A11013F3C887}.Release|Any CPU.Build.0 = Release|Any CPU
+		{794DC4B1-3218-466F-8BEC-D24AD666711A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{794DC4B1-3218-466F-8BEC-D24AD666711A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{794DC4B1-3218-466F-8BEC-D24AD666711A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{794DC4B1-3218-466F-8BEC-D24AD666711A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

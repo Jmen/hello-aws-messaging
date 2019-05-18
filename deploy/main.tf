@@ -62,5 +62,5 @@ EOF
 module "hello-sqs" {
   source = "./modules/sqs"
 
-  name = "hello-sqs"
+  name = "hello-sqs-${var.environment}"
 }
