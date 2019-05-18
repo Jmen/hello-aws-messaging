@@ -51,7 +51,10 @@ resource "aws_iam_policy" "lambda_policy" {
         },
         {
             "Effect": "Allow",
-            "Action": "sqs:SendMessage",
+            "Action": [
+                "sqs:SendMessage",
+                "sqs:GetQueueUrl"
+            ],
             "Resource": "${module.hello-sqs.arn}"
         }
     ]
