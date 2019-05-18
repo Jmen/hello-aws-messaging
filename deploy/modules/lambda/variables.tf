@@ -14,6 +14,4 @@ variable "timeout" {
 
 variable "policy_arn" {}
 
-variable "environment_variables" {
-    type = map
-}
+variable "environment_variables" { type = "map" }
