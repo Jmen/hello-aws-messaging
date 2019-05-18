@@ -10,6 +10,14 @@ provider "aws" {
 
 variable "environment" {}
 
+module "hello_messaging_api_gateway" {
+  source            = "./modules/api-gateway"
+
+  name              = "hello-messaging-${var.environment}"
+  lambda_arn        = "${module.hello_messaging_api_gateway_lambda.lambda_arn}"
+  lambda_invoke_arn = "${module.hello_messaging_api_gateway_lambda.lambda_invoke_arn}"
+}
+
 module "hello_messaging_api_gateway_lambda" {
   source            = "./modules/lambda"
   
@@ -19,6 +27,10 @@ module "hello_messaging_api_gateway_lambda" {
   filename          = "../../../../../../output/apigateway-lambda.zip"
   source_code_hash  = "${base64sha256(file("../../../../../../output/apigateway-lambda.zip"))}"
   policy_arn = "${aws_iam_policy.lambda_policy.arn}"
+  
+  environment_variables = {
+    "SQS_Queue_ARN" = "${module.hello-sqs.arn}"
+  }
 }
 
 resource "aws_iam_policy" "lambda_policy" {
@@ -36,23 +48,19 @@ resource "aws_iam_policy" "lambda_policy" {
                 "logs:PutLogEvents"
             ],
             "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/hello-messaging-apigateway-${var.environment}:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "sqs:SendMessage",
+            "Resource": "${module.hello-sqs.arn}"
         }
     ]
 }
 EOF
 }
 
-module "hello_messaging_api_gateway" {
-  source            = "./modules/api-gateway"
-
-  name              = "hello-messaging-${var.environment}"
-  lambda_arn        = "${module.hello_messaging_api_gateway_lambda.lambda_arn}"
-  lambda_invoke_arn = "${module.hello_messaging_api_gateway_lambda.lambda_invoke_arn}"
-}
-
-
 module "hello-sqs" {
   source = "./modules/sqs"
-  
+
   name = "hello-sqs"
 }

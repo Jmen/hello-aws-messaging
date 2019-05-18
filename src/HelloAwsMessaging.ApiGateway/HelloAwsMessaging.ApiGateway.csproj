@@ -8,5 +8,6 @@
         <PackageReference Include="Amazon.Lambda.APIGatewayEvents" Version="1.2.0" />
         <PackageReference Include="Amazon.Lambda.Core" Version="1.1.0" />
         <PackageReference Include="Amazon.Lambda.Serialization.Json" Version="1.5.0" />
+        <PackageReference Include="AWSSDK.SQS" Version="3.3.100.20" />
     </ItemGroup>
 </Project>

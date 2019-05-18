@@ -8,6 +8,9 @@ resource "aws_lambda_function" "lambda" {
   handler = "${var.handler}"
   runtime = "${var.runtime}"
   timeout = "${var.timeout}"
+  environment {
+    variables = "${var.environment_variables}"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "role_policy_attachment" {
