@@ -9,7 +9,7 @@ module "hello_messaging_sqs_to_sns_lambda" {
   policy_arn = "${aws_iam_policy.sqs_to_sns_lambda_policy.arn}"
 
   environment_variables = {
-    "SQS_Queue_Name" = "${module.hello_sqs.name}"
+    "Topic_ARN" = "${aws_sns_topic.hello-sns.arn}"
   }
 }
 
