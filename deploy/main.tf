@@ -34,7 +34,7 @@ module "hello_messaging_api_gateway_lambda" {
 }
 
 resource "aws_iam_policy" "api_gateway_lambda_policy" {
-  name = "hello-messaging-apigateway-${var.environment}-policy"
+  name = "hello-messaging-apigateway-to-sns-${var.environment}-policy"
   path = "/"
   policy = <<EOF
 {
