@@ -109,7 +109,10 @@ resource "aws_iam_policy" "sqs_to_sns_lambda_policy" {
         {
             "Effect": "Allow",
             "Action": [
-
+              "sqs:ReceiveMessage",
+              "sqs:DeleteMessage",
+              "sqs:GetQueueAttributes",
+              "sqs:ChangeMessageVisibility"
             ],
             "Resource": "${module.hello_sqs.arn}"
         }
