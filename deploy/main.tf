@@ -104,7 +104,7 @@ resource "aws_iam_policy" "sqs_to_sns_lambda_policy" {
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
             ],
-            "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/hello-messaging-apigateway-${var.environment}:*"
+            "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/hello-messaging-sqs-to-sns-${var.environment}:*"
         },
         {
             "Effect": "Allow",
