@@ -27,4 +27,3 @@ terragrunt = {
 }
 
 environment = "live"
-count = 3

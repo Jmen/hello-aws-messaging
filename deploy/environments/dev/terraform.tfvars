@@ -27,4 +27,3 @@ terragrunt = {
 }
 
 environment = "dev"
-count = 2
