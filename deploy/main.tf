@@ -9,7 +9,3 @@ provider "aws" {
 }
 
 variable "environment" {}
-
-resource "aws_sns_topic" "hello-sns" {
-  name = "hello-sns-${var.environment}"
-}

@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloAwsMessaging.ConsoleTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloAwsMessaging.SqsToSns", "HelloAwsMessaging.SqsToSns\HelloAwsMessaging.SqsToSns.csproj", "{15E62F05-796E-4CCD-A6A7-CDF6E874B29A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloAwsMessaging.SnsToKinesis", "HelloAwsMessaging.SnsToKinesis\HelloAwsMessaging.SnsToKinesis.csproj", "{11577E91-D641-4729-9409-C9BF107A7385}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{15E62F05-796E-4CCD-A6A7-CDF6E874B29A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15E62F05-796E-4CCD-A6A7-CDF6E874B29A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15E62F05-796E-4CCD-A6A7-CDF6E874B29A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11577E91-D641-4729-9409-C9BF107A7385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11577E91-D641-4729-9409-C9BF107A7385}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11577E91-D641-4729-9409-C9BF107A7385}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11577E91-D641-4729-9409-C9BF107A7385}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

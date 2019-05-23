@@ -27,23 +27,11 @@ namespace HelloAwsMessaging.ApiGateway
         private async Task SendMessage()
         {
             var urlResponse = await _sqs.GetQueueUrlAsync(Environment.GetEnvironmentVariable("SQS_Queue_Name"));
-            
-            var attributes = new Dictionary<string, MessageAttributeValue>()
-            {
-                {
-                    "Hello", new MessageAttributeValue
-                    {
-                        DataType = "String",
-                        StringValue = Guid.NewGuid().ToString()
-                    }
-                }
-            };
-            
+
             await _sqs.SendMessageAsync(new SendMessageRequest
             {
                 QueueUrl = urlResponse.QueueUrl,
                 MessageBody = $"This is my message text - {DateTime.UtcNow:F}",
-                MessageAttributes = attributes
             });
         }
 
