@@ -1,31 +1,41 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
+using Amazon.SimpleNotificationService;
+using Amazon.SimpleNotificationService.Model;
+using Newtonsoft.Json;
 
-// Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
 
 namespace HelloAwsMessaging.SqsToSns
 {
     public class Function
     {
+        private readonly IAmazonSimpleNotificationService _simpleNotificationService = new AmazonSimpleNotificationServiceClient();
+        private readonly string _topicArn  = Environment.GetEnvironmentVariable("Topic_ARN");
+
         public async Task FunctionHandler(SQSEvent sqsEvent, ILambdaContext context)
         {
-            foreach(var message in sqsEvent.Records)
+            foreach(var record in sqsEvent.Records)
             {
-                await ProcessMessageAsync(message, context);
+                await SendSns(record, context);
             }
         }
 
-        private static async Task ProcessMessageAsync(SQSEvent.SQSMessage message, ILambdaContext context)
+        private async Task SendSns(SQSEvent.SQSMessage sqsRecord, ILambdaContext context)
         {
-            context.Logger.LogLine($"Processed message {message.Body}");
-
-            // TODO: Do interesting work based on the new message
-            await Task.CompletedTask;
+            context.Logger.LogLine($"Processing message {sqsRecord.Body}");
+            
+            var request = new PublishRequest
+            {
+                Message = sqsRecord.Body,
+                TopicArn = _topicArn,
+            };
+            
+            var response = await _simpleNotificationService.PublishAsync(request);
+            
+            context.Logger.LogLine(JsonConvert.SerializeObject(response, Formatting.Indented));
         }
     }
 }

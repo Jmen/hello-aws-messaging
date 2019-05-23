@@ -38,6 +38,13 @@ resource "aws_iam_policy" "sqs_to_sns_lambda_policy" {
               "sqs:ChangeMessageVisibility"
             ],
             "Resource": "${module.hello_sqs.arn}"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+              "sns:Publish"
+            ],
+            "Resource": "${aws_sns_topic.hello-sns.arn}"
         }
     ]
 }
