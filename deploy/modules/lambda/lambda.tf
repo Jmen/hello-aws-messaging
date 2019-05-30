@@ -23,6 +23,17 @@ resource "aws_iam_role_policy_attachment" "role_policy_attachment" {
     policy_arn = "${var.policy_arn}"
 }
 
+resource "aws_iam_role_policy_attachment" "role_policy_attachment" {
+  role       = "${aws_iam_role.lambda_role.name}"
+  policy_arn = "${aws_iam_policy.lambda_logging_policy.arn}"
+}
+
+resource "aws_iam_role_policy_attachment" "role_policy_attachment" {
+  role       = "${aws_iam_role.lambda_role.name}"
+  policy_arn = "${aws_iam_policy.lambda_xray_policy.arn}"
+}
+
+
 resource "aws_iam_role" "lambda_role" {
         name = "${var.name}-role"
         assume_role_policy = <<EOF
@@ -42,3 +53,44 @@ resource "aws_iam_role" "lambda_role" {
 EOF
 }
 
+resource "aws_iam_policy" "lambda_logging_policy" {
+name = "${aws_iam_role.lambda_role.name}-logging-policy"
+path = "/"
+policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/${aws_iam_role.lambda_role.name}:*"
+        }
+    ]
+}
+EOF
+}
+
+
+resource "aws_iam_policy" "lambda_xray_policy" {
+  name = "${aws_iam_role.lambda_role.name}-xray-policy"
+  path = "/"
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+              "xray:PutTraceSegments",
+              "xray:PutTelemetryRecords"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+EOF
+}
