@@ -16,9 +16,7 @@ namespace HelloAwsMessaging.SqsToSns
         private readonly string _topicArn  = Environment.GetEnvironmentVariable("Topic_ARN");
 
         public async Task FunctionHandler(SQSEvent sqsEvent, ILambdaContext context)
-        {
-            throw new Exception();
-            
+        {   
             foreach(var record in sqsEvent.Records)
             {
                 await SendSns(record, context);
