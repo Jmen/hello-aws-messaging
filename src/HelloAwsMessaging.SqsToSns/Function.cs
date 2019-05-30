@@ -17,6 +17,8 @@ namespace HelloAwsMessaging.SqsToSns
 
         public async Task FunctionHandler(SQSEvent sqsEvent, ILambdaContext context)
         {
+            throw new Exception();
+            
             foreach(var record in sqsEvent.Records)
             {
                 await SendSns(record, context);
