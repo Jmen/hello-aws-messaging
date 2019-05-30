@@ -18,17 +18,17 @@ resource "aws_lambda_function" "lambda" {
   }
 }
 
-resource "aws_iam_role_policy_attachment" "role_policy_attachment" {
+resource "aws_iam_role_policy_attachment" "role_policy_attachment_external" {
     role       = "${aws_iam_role.lambda_role.name}"
     policy_arn = "${var.policy_arn}"
 }
 
-resource "aws_iam_role_policy_attachment" "role_policy_attachment" {
+resource "aws_iam_role_policy_attachment" "role_policy_attachment_logging" {
   role       = "${aws_iam_role.lambda_role.name}"
   policy_arn = "${aws_iam_policy.lambda_logging_policy.arn}"
 }
 
-resource "aws_iam_role_policy_attachment" "role_policy_attachment" {
+resource "aws_iam_role_policy_attachment" "role_policy_attachment_xray" {
   role       = "${aws_iam_role.lambda_role.name}"
   policy_arn = "${aws_iam_policy.lambda_xray_policy.arn}"
 }
