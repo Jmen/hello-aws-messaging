@@ -6,6 +6,7 @@ module "hello_messaging_sqs_to_sns_lambda" {
   handler           = "HelloAwsMessaging.SqsToSns::HelloAwsMessaging.SqsToSns.Function::FunctionHandler"
   filename          = "../../../../../../output/sqs-to-sns-lambda.zip"
   source_code_hash  = "${base64sha256(file("../../../../../../output/sqs-to-sns-lambda.zip"))}"
+  attach_optional_policy = true
   policy_arn = "${aws_iam_policy.sqs_to_sns_lambda_policy.arn}"
 
   environment_variables = {
@@ -20,15 +21,6 @@ resource "aws_iam_policy" "sqs_to_sns_lambda_policy" {
 {
     "Version": "2012-10-17",
     "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "logs:CreateLogGroup",
-                "logs:CreateLogStream",
-                "logs:PutLogEvents"
-            ],
-            "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/hello-messaging-sqs-to-sns-${var.environment}:*"
-        },
         {
             "Effect": "Allow",
             "Action": [

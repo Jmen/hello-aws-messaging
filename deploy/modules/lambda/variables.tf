@@ -12,6 +12,12 @@ variable "timeout" {
     default = 60
 }
 
-variable "policy_arn" {}
+variable "attach_optional_policy" {
+    default = false
+}
+
+variable "policy_arn" {
+    default = ""
+}
 
 variable "environment_variables" { type = "map" }

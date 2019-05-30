@@ -18,9 +18,10 @@ resource "aws_lambda_function" "lambda" {
   }
 }
 
-resource "aws_iam_role_policy_attachment" "role_policy_attachment_external" {
-    role       = "${aws_iam_role.lambda_role.name}"
-    policy_arn = "${var.policy_arn}"
+resource "aws_iam_role_policy_attachment" "role_policy_attachment_optional" {
+  count      = "${var.attach_optional_policy}"
+  role       = "${aws_iam_role.lambda_role.name}"
+  policy_arn = "${var.policy_arn}"
 }
 
 resource "aws_iam_role_policy_attachment" "role_policy_attachment_logging" {

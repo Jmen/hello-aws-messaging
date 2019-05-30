@@ -6,6 +6,7 @@ module "hello_messaging_api_gateway_lambda" {
   handler           = "HelloAwsMessaging.ApiGateway::HelloAwsMessaging.ApiGateway.Function::FunctionHandler"
   filename          = "../../../../../../output/apigateway-lambda.zip"
   source_code_hash  = "${base64sha256(file("../../../../../../output/apigateway-lambda.zip"))}"
+  attach_optional_policy = true
   policy_arn = "${aws_iam_policy.api_gateway_lambda_policy.arn}"
 
   environment_variables = {
@@ -20,15 +21,6 @@ resource "aws_iam_policy" "api_gateway_lambda_policy" {
 {
     "Version": "2012-10-17",
     "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "logs:CreateLogGroup",
-                "logs:CreateLogStream",
-                "logs:PutLogEvents"
-            ],
-            "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/hello-messaging-apigateway-${var.environment}:*"
-        },
         {
             "Effect": "Allow",
             "Action": [
