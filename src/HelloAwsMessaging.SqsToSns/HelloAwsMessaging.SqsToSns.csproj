@@ -10,5 +10,6 @@
         <PackageReference Include="Amazon.Lambda.SQSEvents" Version="1.1.0" />
         <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.3.101.9" />
         <PackageReference Include="AWSSDK.SQS" Version="3.3.100.20" />
+        <PackageReference Include="AWSSDK.XRay" Version="3.3.101.13" />
     </ItemGroup>
 </Project>
