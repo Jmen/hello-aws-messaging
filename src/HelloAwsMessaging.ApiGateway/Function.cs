@@ -21,6 +21,7 @@ namespace HelloAwsMessaging.ApiGateway
         
         public Function()
         {
+            AWSXRayRecorder.InitializeInstance();
             AWSSDKHandler.RegisterXRay<IAmazonSQS>();
         }
         

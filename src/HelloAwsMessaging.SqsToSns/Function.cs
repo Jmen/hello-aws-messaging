@@ -19,6 +19,7 @@ namespace HelloAwsMessaging.SqsToSns
 
         public Function()
         {
+            AWSXRayRecorder.InitializeInstance();
             AWSSDKHandler.RegisterXRay<IAmazonSimpleNotificationService>();
         }
         
