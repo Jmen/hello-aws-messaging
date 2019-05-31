@@ -45,28 +45,28 @@ resource "aws_api_gateway_integration" "proxy_integration" {
     uri                     = "${var.lambda_invoke_arn}"
 }
 
-//resource "aws_lambda_permission" "lambda_permission" {
-//  statement_id  = "AllowAPIGatewayInvoke"
-//  action        = "lambda:InvokeFunction"
-//  function_name = "${var.lambda_arn}"
-//  principal     = "apigateway.amazonaws.com"
-//  source_arn = "${aws_api_gateway_deployment.deployment.execution_arn}/*/*"
-//}
+resource "aws_lambda_permission" "lambda_permission" {
+  statement_id  = "AllowAPIGatewayInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = "${var.lambda_arn}"
+  principal     = "apigateway.amazonaws.com"
+  source_arn = "${aws_api_gateway_deployment.deployment.execution_arn}/*/*"
+}
 
-//resource "aws_api_gateway_stage" "stage" {
-//    stage_name    = "stage"
-//    rest_api_id   = "${aws_api_gateway_rest_api.api.id}"
-//    deployment_id = "${aws_api_gateway_deployment.deployment.id}"
-//    xray_tracing_enabled = true
-//}
-//
-//resource "aws_api_gateway_deployment" "deployment" {
-//    depends_on = [
-//        "aws_api_gateway_integration.root_integration",
-//        "aws_api_gateway_integration.proxy_integration"
-//    ]
-//
-//    rest_api_id = "${aws_api_gateway_rest_api.api.id}"
-//    stage_name  = "stage"
-//    stage_description = "${var.name} ${var.lambda_arn} ${var.lambda_invoke_arn} ${md5(file("./modules/api-gateway/api-gateway.tf"))}"
-//}
+resource "aws_api_gateway_stage" "stage" {
+    stage_name    = "stage"
+    rest_api_id   = "${aws_api_gateway_rest_api.api.id}"
+    deployment_id = "${aws_api_gateway_deployment.deployment.id}"
+    xray_tracing_enabled = true
+}
+
+resource "aws_api_gateway_deployment" "deployment" {
+    depends_on = [
+        "aws_api_gateway_integration.root_integration",
+        "aws_api_gateway_integration.proxy_integration"
+    ]
+
+    rest_api_id = "${aws_api_gateway_rest_api.api.id}"
+    stage_name  = "stage"
+    stage_description = "${var.name} ${var.lambda_arn} ${var.lambda_invoke_arn} ${md5(file("./modules/api-gateway/api-gateway.tf"))}"
+}
