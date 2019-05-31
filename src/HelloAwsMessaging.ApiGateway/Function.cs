@@ -7,6 +7,7 @@ using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Amazon.SQS;
 using Amazon.SQS.Model;
+using Amazon.XRay.Recorder.Handlers.AwsSdk;
 using Newtonsoft.Json;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
@@ -14,8 +15,13 @@ using Newtonsoft.Json;
 namespace HelloAwsMessaging.ApiGateway
 {
     public class Function
-    {
+    {   
         private readonly IAmazonSQS _sqs = new AmazonSQSClient(RegionEndpoint.USEast1);
+        
+        public Function()
+        {
+            AWSSDKHandler.RegisterXRayForAllServices();
+        }
         
         public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
         {
