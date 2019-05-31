@@ -7,6 +7,7 @@ using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Amazon.SQS;
 using Amazon.SQS.Model;
+using Amazon.XRay.Recorder.Core;
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
 using Newtonsoft.Json;
 
@@ -20,7 +21,7 @@ namespace HelloAwsMessaging.ApiGateway
         
         public Function()
         {
-            AWSSDKHandler.RegisterXRayForAllServices();
+            AWSSDKHandler.RegisterXRay<IAmazonSQS>();
         }
         
         public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)

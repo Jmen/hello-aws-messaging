@@ -4,6 +4,7 @@ using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
+using Amazon.XRay.Recorder.Core;
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
 using Newtonsoft.Json;
 
@@ -18,7 +19,7 @@ namespace HelloAwsMessaging.SqsToSns
 
         public Function()
         {
-            AWSSDKHandler.RegisterXRayForAllServices();
+            AWSSDKHandler.RegisterXRay<IAmazonSimpleNotificationService>();
         }
         
         public async Task FunctionHandler(SQSEvent sqsEvent, ILambdaContext context)

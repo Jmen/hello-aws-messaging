@@ -1,6 +1,7 @@
 ﻿using System;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.SNSEvents;
+using Amazon.XRay.Recorder.Core;
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -13,6 +14,7 @@ namespace HelloAwsMessaging.SnsToKinesis
     {
         public Function()
         {
+            AWSXRayRecorder.InitializeInstance();
             AWSSDKHandler.RegisterXRayForAllServices();
         }
         
