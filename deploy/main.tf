@@ -9,3 +9,4 @@ provider "aws" {
 }
 
 variable "environment" {}
+
